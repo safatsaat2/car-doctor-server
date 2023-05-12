@@ -48,7 +48,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`car doctor is running on: ${port}`)
 })
-
-
-// sakibsafat47
-// BtPTHAapo1JZJbTQ
