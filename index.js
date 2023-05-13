@@ -30,6 +30,7 @@ async function run() {
     await client.connect();
 
     const servicesCollection = client.db('carDoctor').collection('services');
+    const bookingCollection = client.db('carDoctor').collection('booking');
 
     app.get('/services', async(req, res) =>{
         const cursor = servicesCollection.find();
@@ -42,6 +43,14 @@ async function run() {
         const query = {_id: new ObjectId(id)}
         const result = await servicesCollection.findOne(query);
         res.send(result);
+    });
+
+    // bookings
+    app.post('/bookings', async(req, res) =>{
+        const booking = req.body;
+        console.log(booking)
+        const result = await bookingCollection.insertOne(booking);
+        res.send(result)
     })
 
 
@@ -64,8 +73,5 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`car doctor is running on: ${port}`)
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 6235d709f46fc573c075ffeaa7bc7c00e27a8316
+
