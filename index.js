@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken')
 const app = express();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
@@ -68,6 +69,21 @@ async function run() {
         res.send(result)
     })
 
+
+      app.patch('/bookings/:id', async(req, res) => {
+        const id = req.params.id;
+        const filter = {_id: new ObjectId(id)}
+        const updatedBooking = req.body;
+
+        console.log(updatedBooking);
+        const updatedDoc ={
+          $set:{
+            status: updatedBooking.status
+          },
+        };
+        const result = await bookingCollection.updateOne(filter, updatedDoc);
+        res.send(result);
+      })
 
     app.delete(`/bookings/:id`, async(req, res) =>{
       const id = req.params.id;
