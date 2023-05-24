@@ -67,8 +67,11 @@ async function run() {
 
     app.get('/services', async(req, res) =>{
       const sort = req.query.sort;
+      const search =  req.query.search;
+      console.log(search)
       // const query ={price:{$gt: 100}};
-      const query ={};
+      // const query ={};
+      const query = {title: { $regex: search, $options: 'i'}}
       const options = {
         sort: {"price": sort === 'asc' ? 1 : -1}
       } ;
